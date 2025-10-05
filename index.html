@@ -26,12 +26,18 @@
         }
 
         .logo{
-        width: 50%;
+        width: 150px;
         width: 250px ;   /* força o tamanho */
         height: auto ;  /* mantém proporção */
         display: block;
-        margin: 20px auto;
+        margin: 20px auto 40px auto;
     }
+        @media (max-width: 600px) {
+  .logo {
+    width: 110px; /* menor em telas pequenas */
+    margin-top: 40px; /* espaço extra no topo */
+  }
+}
             
         
 
@@ -203,6 +209,7 @@ input[type="text"]:focus{
 </body>
 
 </html>
+
 
 
 
