@@ -24,21 +24,23 @@
             background-attachment: fixed;
 
             display: flex;
-            justify-content: center;
+            justify-content:  flex-start;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding-top: 20px;
         }
 
         .logo{
-        width: 150px;
+        width: 50%;
         width: 150px ;   /* força o tamanho */
         height: auto ;  /* mantém proporção */
         display: block;
-        margin: 20px auto 40px auto;
+        margin: 20px auto;
     }
         @media (max-width: 600px) {
   .logo {
-    width: 70px; /* menor em telas pequenas */
+    width: 70%;/* menor em telas pequenas */
+    max-width: none;
     margin-top: 10px; /* espaço extra no topo */
   }
 }
@@ -220,6 +222,7 @@ input[type="text"]:focus{
 </body>
 
 </html>
+
 
 
 
