@@ -4,11 +4,11 @@ import os
 
 app = Flask(__name__)
 
-# Configuração do PostgreSQL (idealmente você colocará isso nas variáveis de ambiente do Render)
+# Configuração do PostgreSQL (via variáveis de ambiente do Render)
 DB_HOST = os.getenv("DB_HOST", "dpg-abc123-p1234.render.com")
 DB_NAME = os.getenv("DB_NAME", "igreja_db")
 DB_USER = os.getenv("DB_USER", "igreja_user")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "sua_senha_aqui")
+DB_PASSWORD = os.getenv("DB_PASSWORD")  # configure no Render
 DB_PORT = os.getenv("DB_PORT", "5432")
 
 def conectar():
@@ -19,6 +19,30 @@ def conectar():
         password=DB_PASSWORD,
         port=DB_PORT
     )
+
+def criar_tabela():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS membros (
+            id SERIAL PRIMARY KEY,
+            nome TEXT NOT NULL,
+            grupo TEXT,
+            sexo TEXT,
+            data_nascimento DATE,
+            telefone TEXT,
+            endereco TEXT,
+            bairro TEXT,
+            cep TEXT,
+            membro TEXT,
+            batizado TEXT,
+            cargo TEXT,
+            culto TEXT
+        );
+    """)
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 @app.route("/")
 def index():
@@ -58,7 +82,6 @@ def salvar():
         return f"<h2>❌ Erro ao salvar: {e}</h2>"
 
 if __name__ == "__main__":
+    criar_tabela()  # cria a tabela automaticamente se não existir
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
